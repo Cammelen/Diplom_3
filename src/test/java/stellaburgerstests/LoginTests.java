@@ -1,8 +1,10 @@
 package stellaburgerstests;
-
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+import pageobject.ForgotPassword;
+import pageobject.LoginPage;
+import pageobject.PrivateCabinet;
+import pageobject.RegistrationPage;
 
 @DisplayName("Авторизация")
 public class LoginTests extends BaseTest {
@@ -11,61 +13,83 @@ public class LoginTests extends BaseTest {
     @DisplayName("Вход по кнопке _Войти в аккаунт_ на главной")
     public void enterToAccount() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
+        new LoginPage(driver)
+                .clickEnterToAccount();
 
-        boolean isDisplayedCheckOrder = driver.findElement(privateCabinet.displayCheckOrder).isDisplayed();
-        assertTrue(isDisplayedCheckOrder);
+        new RegistrationPage(driver)
+                .clickEmail()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .displayedCheckOrder();
     }
 
     @Test
     @DisplayName("Вход по кнопке _Личный кабинет_")
     public void enterToPrivateCabinet() {
 
-        driver.findElement(privateCabinet.enterPrivateCabinet).click();
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
+        new PrivateCabinet(driver)
+                .clickEnterToPrivateCabinet();
 
-        boolean isDisplayedCheckOrder = driver.findElement(privateCabinet.displayCheckOrder).isDisplayed();
-        assertTrue(isDisplayedCheckOrder);
+        new RegistrationPage(driver)
+                .clickEmail()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .displayedCheckOrder();
     }
 
     @Test
     @DisplayName("Вход по кнопке _Войти_ из формы регистрации")
-    public void enterFromFormOfRegistratin() {
+    public void enterFromFormOfRegistration() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(loginPage.registration).click();
-        driver.findElement(registrationPage.loginFromRegistration).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
+        new LoginPage(driver)
+                .clickEnterToAccount()
+                .clickRegistration();
 
-        boolean isDisplayedCheckOrder = driver.findElement(privateCabinet.displayCheckOrder).isDisplayed();
-        assertTrue(isDisplayedCheckOrder);
+        new RegistrationPage(driver)
+                .clickLoginFromRegistration()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .displayedCheckOrder();
     }
 
     @Test
     @DisplayName("Вход по кнопке _Войти_ из формы восстановления пароля")
     public void enterFromFormOfForgotPassword() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(loginPage.restorePassword).click();
-        driver.findElement(forgotPassword.loginFromForgotPassword).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
+        new LoginPage(driver)
+                .clickEnterToAccount()
+                .clickRestorePassword();
 
-        boolean isDisplayedCheckOrder = driver.findElement(privateCabinet.displayCheckOrder).isDisplayed();
-        assertTrue(isDisplayedCheckOrder);
+        new ForgotPassword(driver)
+                .clickLoginFromForgotPassword();
+
+        new RegistrationPage(driver)
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .displayedCheckOrder();
     }
 }

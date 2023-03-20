@@ -1,7 +1,10 @@
 package stellaburgerstests;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+import pageobject.Constructor;
+import pageobject.LoginPage;
+import pageobject.PrivateCabinet;
+import pageobject.RegistrationPage;
 
 @DisplayName("Переходы в личном кабинете")
 public class PrivateCabinetTests extends BaseTest {
@@ -10,66 +13,96 @@ public class PrivateCabinetTests extends BaseTest {
     @DisplayName("Переход по клику на _Личный кабинет_")
     public void goToPrivateCabinet() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
-        driver.findElement(privateCabinet.enterPrivateCabinet).click();
+        new LoginPage(driver)
+                .clickEnterToAccount();
 
-        boolean isDisplayedProfile = driver.findElement(privateCabinet.displayProfile).isDisplayed();
-        assertTrue(isDisplayedProfile);
+        new RegistrationPage(driver)
+                .clickEmail()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .clickEnterToPrivateCabinet()
+                .displayedProfile();
     }
 
     @Test
     @DisplayName("Переход по клику на _Конструктор_ из личного кабинета")
     public void goToConstructor() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
-        driver.findElement(privateCabinet.enterPrivateCabinet).click();
-        driver.findElement(constructor.enterConstructor).click();
+        new LoginPage(driver)
+                .clickEnterToAccount();
 
-        boolean isDisplayedConstructor = driver.findElement(constructor.displayConstructor).isDisplayed();
-        assertTrue(isDisplayedConstructor);
+        new RegistrationPage(driver)
+                .clickEmail()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .clickEnterToPrivateCabinet();
+
+        new Constructor(driver)
+                .clickEnterToConstructor()
+                .displayedConstructor();
     }
 
     @Test
     @DisplayName("Переход по клику на Логотип из личного кабинета")
     public void goToLogo() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
-        driver.findElement(privateCabinet.enterPrivateCabinet).click();
-        driver.findElement(constructor.enterLogo).click();
+        new LoginPage(driver)
+                .clickEnterToAccount();
 
-        boolean isDisplayedConstructor = driver.findElement(constructor.displayConstructor).isDisplayed();
-        assertTrue(isDisplayedConstructor);
+        new RegistrationPage(driver)
+                .clickEmail()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .clickEnterToPrivateCabinet();
+
+        new Constructor(driver)
+                .clickLogo();
+
+        new Constructor(driver)
+                .clickEnterToConstructor()
+                .displayedConstructor();
     }
 
     @Test
     @DisplayName("Выход из личного кабинета")
     public void outFromPrivateCabinet() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(existEmail);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(existPassword);
-        driver.findElement(loginPage.enterFromLogin).click();
-        driver.findElement(privateCabinet.enterPrivateCabinet).click();
-        driver.findElement(privateCabinet.outPrivateCabinet).click();
+        new LoginPage(driver)
+                .clickEnterToAccount();
 
-        boolean isDisplayedEnter = driver.findElement(registrationPage.displayEnter).isDisplayed();
-        assertTrue(isDisplayedEnter);
+        new RegistrationPage(driver)
+                .clickEmail()
+                .enterEmail(existEmail)
+                .clickPassword()
+                .enterPassword(existPassword);
+
+        new LoginPage(driver)
+                .clickEnterFromLogin();
+
+        new PrivateCabinet(driver)
+                .clickEnterToPrivateCabinet()
+                .clickEnterOutFromPrivateCabinet();
+
+        new Constructor(driver)
+                .clickEnterToConstructor()
+                .displayedConstructor();
     }
 }

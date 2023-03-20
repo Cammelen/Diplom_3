@@ -1,7 +1,8 @@
 package stellaburgerstests;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+import pageobject.LoginPage;
+import pageobject.RegistrationPage;
 
 @DisplayName("Регистрация")
 public class RegistrationTests extends BaseTest {
@@ -10,33 +11,35 @@ public class RegistrationTests extends BaseTest {
     @DisplayName("Успешная регистрация")
     public void registrationUser() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(loginPage.registration).click();
-        driver.findElement(registrationPage.enterName).sendKeys(name);
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(email);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(password);
-        driver.findElement(registrationPage.registrationUser).click();
+        new LoginPage(driver)
+                .clickEnterToAccount()
+                .clickRegistration();
 
-        boolean isDisplayedEnter = driver.findElement(registrationPage.displayEnter).isDisplayed();
-        assertTrue(isDisplayedEnter);
+        new RegistrationPage(driver)
+                .enterName(name)
+                .clickEmail()
+                .enterEmail(email)
+                .clickPassword()
+                .enterPassword(password)
+                .clickRegistrationUser()
+                .displayedEnter();
     }
 
     @Test
     @DisplayName("Регистрация с некорректным паролем")
     public void registrationWithNotCorrectPassword() {
 
-        driver.findElement(loginPage.enterToAccount).click();
-        driver.findElement(loginPage.registration).click();
-        driver.findElement(registrationPage.enterName).sendKeys(name);
-        driver.findElement(registrationPage.email).click();
-        driver.findElement(registrationPage.enterEmail).sendKeys(email);
-        driver.findElement(registrationPage.password).click();
-        driver.findElement(registrationPage.enterPassword).sendKeys(notCorrectPassword);
-        driver.findElement(registrationPage.registrationUser).click();
+        new LoginPage(driver)
+                .clickEnterToAccount()
+                .clickRegistration();
 
-        boolean isDisplayedNotCorrectPassword = driver.findElement(registrationPage.displayNotCorrectPassword).isDisplayed();
-        assertTrue(isDisplayedNotCorrectPassword);
+        new RegistrationPage(driver)
+                .enterName(name)
+                .clickEmail()
+                .enterEmail(email)
+                .clickPassword()
+                .enterPassword(notCorrectPassword)
+                .clickRegistrationUser()
+                .displayedNotCorrectPassword();
     }
 }

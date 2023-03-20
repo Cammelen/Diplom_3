@@ -1,7 +1,7 @@
 package stellaburgerstests;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+import pageobject.Constructor;
 
 @DisplayName("Переход по разделам конструктора")
 public class ConstructorTests extends BaseTest {
@@ -10,30 +10,27 @@ public class ConstructorTests extends BaseTest {
     @DisplayName("Переход к разделу _Начинки_")
     public void goToFillings() {
 
-        driver.findElement(constructor.toFillings).click();
-
-        boolean isDisplayedFillings = driver.findElement(constructor.displayFillings).isDisplayed();
-        assertTrue(isDisplayedFillings);
+        new Constructor(driver)
+                .goToFillings()
+                .displayedFillings();
     }
 
     @Test
     @DisplayName("Переход к разделу _Соусы_")
     public void goToSauces() {
 
-        driver.findElement(constructor.toSauces).click();
-
-        boolean isDisplayedSauces = driver.findElement(constructor.displaySauces).isDisplayed();
-        assertTrue(isDisplayedSauces);
+        new Constructor(driver)
+                .goToSauces()
+                .displayedSauses();
     }
 
     @Test
     @DisplayName("Переход к разделу _Булки_")
     public void goToRolls() {
 
-        driver.findElement(constructor.toFillings).click();
-        driver.findElement(constructor.toRolls).click();
-
-        boolean isDisplayedRolls = driver.findElement(constructor.displayRolls).isDisplayed();
-        assertTrue(isDisplayedRolls);
+        new Constructor(driver)
+                .goToFillings()
+                .goToRolls()
+                .displayedRolls();
     }
 }
